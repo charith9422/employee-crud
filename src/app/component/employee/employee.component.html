@@ -1,0 +1,18 @@
+<form [formGroup]="newEmployee" (ngSubmit)="addEmployee()">
+    <!-- <input type="hidden" formControlName="id"> -->
+    
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" formControlName="name" aria-describedby="emailHelp"
+            placeholder="Enter Name">
+        <small id="emailHelp" *ngIf="processValidation" class="form-text text-muted">Name Required!</small>
+    </div>
+    <div class="form-group">
+        <label>Role</label>
+        <input type="text" class="form-control" formControlName="role" aria-describedby="emailHelp"
+            placeholder="Enter Role">
+        <small id="emailHelp" class="form-text text-muted" *ngIf="processValidation">Role Required!</small>
+    </div>
+    <button *ngIf="!isUpdateEmployee" type="submit" class="btn btn-primary">Submit</button>
+    <button *ngIf="isUpdateEmployee" type="submit" class="btn btn-warning">Update</button>
+</form>
