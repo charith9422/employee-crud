@@ -75,6 +75,13 @@ export class EmployeeComponent implements OnInit {
   preProcessConfiguration() {
     this.requestProcessing = true;
   }
+  get name() {
+    return this.newEmployee.get('name');
+  }
+
+  get role() {
+    return this.newEmployee.get('role');
+  }
 
   /* route.queryParams.subscribe(x => {
     if (x.empId) {
