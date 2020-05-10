@@ -14,7 +14,7 @@ export class EmployeeComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
   }
-  newEmployee = this.fb.group({
+  formEmployee = this.fb.group({
     name: ['', Validators.required],
     role: ['', Validators.required],
   });
@@ -29,17 +29,17 @@ export class EmployeeComponent implements OnInit {
 
   addEmployee() {
     this.processValidation = true;
-    if (this.newEmployee.invalid) {
+    if (this.formEmployee.invalid) {
       return;
     }
     this.preProcessConfiguration();
-    const employeee = this.newEmployee.value;
+    const employeee = this.formEmployee.value;
     if (this.employeeIdToUpdate === null) {
-      if (this.newEmployee.valid) {
-        this.employeeService.addEmployee(this.newEmployee.value).subscribe(
+      if (this.formEmployee.valid) {
+        this.employeeService.addEmployee(this.formEmployee.value).subscribe(
           data => {
             this.employee = data;
-            this.newEmployee.reset();
+            this.formEmployee.reset();
             this.router.navigate(['/employees']);
           }
         );
@@ -49,7 +49,7 @@ export class EmployeeComponent implements OnInit {
       this.employeeService.updateEmployee(employeee)
         .subscribe(data => {
           this.employee = data;
-          this.newEmployee.reset();
+          this.formEmployee.reset();
           this.router.navigate(['/employees']);
         });
     }
@@ -65,7 +65,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.getEmployeeById(id)
       .subscribe(employee => {
         this.employeeIdToUpdate = employee.id;
-        this.newEmployee.setValue({ name: employee.name, role: employee.role });
+        this.formEmployee.setValue({ name: employee.name, role: employee.role });
         this.processValidation = true;
         this.isUpdateEmployee = true;
         this.requestProcessing = false;
@@ -76,11 +76,11 @@ export class EmployeeComponent implements OnInit {
     this.requestProcessing = true;
   }
   get name() {
-    return this.newEmployee.get('name');
+    return this.formEmployee.get('name');
   }
 
   get role() {
-    return this.newEmployee.get('role');
+    return this.formEmployee.get('role');
   }
 
   /* route.queryParams.subscribe(x => {
