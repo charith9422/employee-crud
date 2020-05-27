@@ -19,6 +19,6 @@
             </div>
         </div>
     </div>
-    <button *ngIf="!isUpdateEmployee" type="submit" class="btn btn-primary">Submit</button>
+    <button *ngIf="!isUpdateEmployee" [disabled]="!formEmployee.valid" type="submit" class="btn btn-primary">Submit</button>
     <button *ngIf="isUpdateEmployee" type="submit" class="btn btn-warning">Update</button>
 </form>
